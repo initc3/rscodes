@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  rscodes:
+    image: rscodes-dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    env_file: .env
+    volumes:
+      #- ./docs:/usr/src/rscodes/docs
+      - ./src:/usr/src/rscodes/src
+      - ./tests:/usr/src/rscodes/tests
+      - ./.flake8:/usr/src/rscodes/.flake8
+      - ./Makefile:/usr/src/rscodes/Makefile
+      - ./pytest.ini:/usr/src/rscodes/pytest.ini
+      - ./pyproject.toml:/usr/src/rscodes/pyproject.toml
+      - ./setup.cfg:/usr/src/rscodes/setup.cfg
+      - ./setup.py:/usr/src/rscodes/setup.py
+    command: pytest -v --cov=src

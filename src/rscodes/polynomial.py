@@ -3,11 +3,11 @@ import operator
 from functools import reduce
 from itertools import zip_longest
 
-from honeybadgermpc.ntl import fft as fft_cpp
-from honeybadgermpc.ntl import fft_interpolate as fft_interpolate_cpp
+from ntl import fft as fft_cpp
+from ntl import fft_interpolate as fft_interpolate_cpp
 
-from .betterpairing import ZR
-from .elliptic_curve import Subgroup
+# from .betterpairing import ZR
+# from .elliptic_curve import Subgroup
 from .field import GF, GFElement
 
 
@@ -24,8 +24,10 @@ _poly_cache = {}
 
 
 def polynomials_over(field):
-    assert type(field) is GF or field == ZR
-    field_type = GFElement if type(field) is GF else ZR
+    # assert type(field) is GF or field == ZR
+    # field_type = GFElement if type(field) is GF else ZR
+    assert isinstance(field, GF)
+    field_type = GFElement
     if field in _poly_cache:
         return _poly_cache[field]
 
@@ -424,7 +426,9 @@ class EvalPoint(object):
 
 
 if __name__ == "__main__":
-    field = GF(Subgroup.BLS12_381)
+    # field = GF(Subgroup.BLS12_381)
+    BLS12_381 = 0x73EDA753299D7D483339D80809A1D80553BDA402FFFE5BFEFFFFFFFF00000001
+    field = GF(BLS12_381)
     Poly = polynomials_over(field)
     poly = Poly.random(degree=7)
     poly = Poly([1, 5, 3, 15, 0, 3])

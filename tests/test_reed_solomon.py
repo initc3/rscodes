@@ -2,11 +2,11 @@ from unittest.mock import patch
 
 import pytest
 
-from honeybadgermpc.ntl import AvailableNTLThreads
-from honeybadgermpc.polynomial import EvalPoint
-from honeybadgermpc.reed_solomon import DecoderFactory, EncoderFactory
-from honeybadgermpc.reed_solomon import DecoderSelector, EncoderSelector
-from honeybadgermpc.reed_solomon import (
+from ntl import AvailableNTLThreads
+from rscodes.polynomial import EvalPoint
+from rscodes.reed_solomon import DecoderFactory, EncoderFactory
+from rscodes.reed_solomon import DecoderSelector, EncoderSelector
+from rscodes.reed_solomon import (
     FFTDecoder,
     FFTEncoder,
     GaoRobustDecoder,

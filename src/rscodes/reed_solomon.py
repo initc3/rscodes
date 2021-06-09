@@ -3,8 +3,7 @@ from abc import ABC, abstractmethod
 
 import psutil
 
-from honeybadgermpc.exceptions import HoneyBadgerMPCError
-from honeybadgermpc.ntl import (
+from ntl import (
     AvailableNTLThreads,
     SetNumThreads,
     fft,
@@ -15,7 +14,11 @@ from honeybadgermpc.ntl import (
     vandermonde_batch_evaluate,
     vandermonde_batch_interpolate,
 )
-from honeybadgermpc.reed_solomon_wb import make_wb_encoder_decoder
+from .reed_solomon_wb import make_wb_encoder_decoder
+
+
+class DecodeValidationError(Exception):
+    pass
 
 
 class Encoder(ABC):
@@ -225,11 +228,7 @@ class WelchBerlekampRobustDecoder(RobustDecoder):
         return None, None
 
 
-class DecodeValidationError(HoneyBadgerMPCError):
-    pass
-
-
-class IncrementalDecoder(object):
+class IncrementalDecoder:
     """
     Incremental decoder helps process new data incrementally and aims to make the
     case where no error is present extremely fast.
@@ -403,7 +402,7 @@ class IncrementalDecoder(object):
         return None, None
 
 
-class EncoderSelector(object):
+class EncoderSelector:
     # If n is lesser than this value, always pick Vandermonde
     LOW_VAN_THRESHOLD = 8
     # If n is greater than this value, always pick FFT
@@ -434,7 +433,7 @@ class EncoderSelector(object):
             return FFTEncoder(point)
 
 
-class DecoderSelector(object):
+class DecoderSelector:
     # If n is lesser than this value, always pick Vandermonde
     LOW_VAN_THRESHOLD = 8
     # If batch size is greater than BATCH_SIZE_THRESH_SLOPE * n * self.cores, then
