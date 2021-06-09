@@ -22,13 +22,13 @@ COPY src src
 
 FROM base as dev
 
+ENV PYTHONUNBUFFERED 1
 RUN apt-get update && apt-get install -y --no-install-recommends \
                 vim \
         && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --upgrade pip
 
-#RUN pip install cython
 RUN pip install git+https://github.com/initc3/pyntl.git
 
 RUN pip install --editable .['dev,test']

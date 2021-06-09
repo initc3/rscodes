@@ -1,4 +1,3 @@
-import logging
 import operator
 from functools import reduce
 from itertools import zip_longest
@@ -7,8 +6,7 @@ from ntl import fft as fft_cpp
 from ntl import fft_interpolate as fft_interpolate_cpp
 
 # from .betterpairing import ZR
-from .ec import Subgroup
-from .field import GF, GFElement
+from rscodes.field import GF, GFElement
 
 
 def strip_trailing_zeros(a):
@@ -426,6 +424,8 @@ class EvalPoint(object):
 
 
 if __name__ == "__main__":
+    from rscodes.ec import Subgroup
+
     field = GF(Subgroup.BLS12_381)
     Poly = polynomials_over(field)
     poly = Poly.random(degree=7)
@@ -439,21 +439,21 @@ if __name__ == "__main__":
     # IFFT
     x2 = [b / n for b in fft_helper(x, 1 / omega, field)]
     poly2 = Poly.interpolate_fft(x2, omega)
-    logging.info(poly2)
+    print(poly2)
 
-    logging.info(f"omega1: {omega ** (n//2)}")
-    logging.info(f"omega2: {omega2 ** (n//2)}")
+    print(f"omega1: {omega ** (n//2)}")
+    print(f"omega2: {omega2 ** (n//2)}")
 
-    logging.info("eval:")
+    print("eval:")
     omega = get_omega(field, 2 * n)
     for i in range(len(x)):
-        logging.info(f"{omega**(2*i)} {x[i]}")
-    logging.info("interp_extrap:")
+        print(f"{omega**(2*i)} {x[i]}")
+    print("interp_extrap:")
     x3 = Poly.interp_extrap(x, omega)
     for i in range(len(x3)):
-        logging.info(f"{omega**i} {x3[i]}")
+        print(f"{omega**i} {x3[i]}")
 
-    logging.info("How many omegas are there?")
+    print("How many omegas are there?")
     for _ in range(10):
         omega = get_omega(field, 2 ** 20)
-        logging.info(f"{omega} {omega**(2**17)}")
+        print(f"{omega} {omega**(2**17)}")
