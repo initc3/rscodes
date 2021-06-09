@@ -40,8 +40,8 @@
 # for solving a linear system
 import logging
 
-from honeybadgermpc.field import GF
-from honeybadgermpc.polynomial import EvalPoint, polynomials_over
+from rscodes.field import GF
+from rscodes.polynomial import EvalPoint, polynomials_over
 
 
 def make_wb_encoder_decoder(n, k, p, point=None):
