@@ -2,15 +2,11 @@ from pytest import fixture
 
 
 @fixture
-def bls12_381():
-    return 0x73EDA753299D7D483339D80809A1D80553BDA402FFFE5BFEFFFFFFFF00000001
-
-
-@fixture
-def galois_field(bls12_381):
+def galois_field():
+    from rscodes.ec import Subgroup
     from rscodes.field import GF
 
-    return GF(bls12_381)
+    return GF(Subgroup.BLS12_381)
 
 
 @fixture
