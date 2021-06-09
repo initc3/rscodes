@@ -14,7 +14,7 @@ from ntl import (
     vandermonde_batch_evaluate,
     vandermonde_batch_interpolate,
 )
-from .reed_solomon_wb import make_wb_encoder_decoder
+from rscodes.reed_solomon_wb import make_wb_encoder_decoder
 
 
 class DecodeValidationError(Exception):

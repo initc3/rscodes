@@ -1,1 +1,1 @@
-from .__version__ import __version__ as version  # noqa F401
+from rscodes.__version__ import __version__ as version  # noqa F401
